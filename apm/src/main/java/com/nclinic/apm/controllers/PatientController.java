@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nclinic.apm.models.Patient;
-import com.nclinic.apm.reositories.PatientRepository;
+import com.nclinic.apm.repositories.PatientRepository;
 
 @RestController
 public class PatientController {

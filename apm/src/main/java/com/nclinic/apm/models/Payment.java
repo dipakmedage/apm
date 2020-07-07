@@ -14,30 +14,35 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = Patient.TABLE_NAME_PATIENT)
-public class Patient {
+@Table(name=Payment.TABLE_NAME_PAYMENT)
+public class Payment {
 	
-	public static final String TABLE_NAME_PATIENT = "patient_details";
 	
+	public static final String TABLE_NAME_PAYMENT="payment_details";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String patient_name;
 	
-	private String fathers_name;
+	private int payment;
 	
-	private String mothers_name;
+	private int remaining_payment;
 	
-	private String contact_number;
+	private int advance_payment;
 	
-	private String email_id;
+	private String transaction_id;
 	
-	private Character is_active;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date created_at;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date modified_at;
+	
+	private String created_by;
+	
+	private String modified_by;
+
 }
