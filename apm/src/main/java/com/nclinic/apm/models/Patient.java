@@ -2,11 +2,16 @@ package com.nclinic.apm.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,21 +28,31 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String patient_name;
+	@Column(name="patient_name")
+	private String patientName;
 	
-	private String fathers_name;
+	@Column(name="fathers_name")
+	private String fathersName;
 	
-	private String mothers_name;
+	@Column(name="mothers_name")
+	private String mothersName;
 	
-	private String contact_number;
+	@Column(name="contact_number")
+	private String contactNumber;
 	
-	private String email_id;
+	@Column(name="email_id")
+	private String emailId;
 	
-	private Character is_active;
+	@Column(name="is_active")
+	private Character isActive;
 	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date created_at;
+	private Date createdAt;
 	
+	@Column(name="modified_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date modified_at;
+	private Date modifiedAt;
 }

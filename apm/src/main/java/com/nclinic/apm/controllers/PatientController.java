@@ -4,35 +4,33 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nclinic.apm.models.Patient;
-import com.nclinic.apm.repositories.PatientRepository;
+import com.nclinic.apm.services.PatientService;
 
 @RestController
+@RequestMapping(value="/pat/")
 public class PatientController {
+
+	
 	
 	@Autowired
-	private PatientRepository patientRepository;
-	
-	@GetMapping("/welcome")
-	public String getData() {
-		return "Hello! Welcome to Neha Clinic....";
-	}
-	
-	@GetMapping
+	private PatientService patientService;
+
+	@RequestMapping(value="/getAllPatient")
 	public List<Patient> getpatient() {
-		return (List<Patient>) patientRepository.findAll();
+		return patientService.getPatients();
 	}
-	
-	
-	@PostMapping(path="/patients" , consumes = "application/json", produces = "application/json")
+
+	@RequestMapping(path = "/patients", consumes = "application/json", produces = "application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public void addPatients(@RequestBody Patient patient) {
-		 patientRepository.save(patient);
+	public String addPatients(@RequestBody Patient patient) {
+
+		return patientService.registerPatient(patient);
+		// patientRepository.save(patient);
 	}
 }

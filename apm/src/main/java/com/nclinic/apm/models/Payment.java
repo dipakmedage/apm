@@ -2,11 +2,16 @@ package com.nclinic.apm.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,25 +29,34 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String patient_name;
+	@Column(name="patient_name")
+	private String patientName;
 	
 	private int payment;
 	
-	private int remaining_payment;
+	@Column(name="remaining_payment")
+	private int remainingPayment=0;
 	
-	private int advance_payment;
+	@Column(name="advance_payment")
+	private int advancePayment;
 	
-	private String transaction_id;
+	@Column(name="transaction_id")
+	private String transactionId;
 	
-	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date created_at;
+	private Date createdAt;
 	
+	@Column(name="modified_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date modified_at;
+	private Date modifiedAt;
 	
-	private String created_by;
+	@Column(name="created_by")
+	private String createdBy;
 	
-	private String modified_by;
+	@Column(name="modified_by")
+	private String modifiedBy;
 
 }
