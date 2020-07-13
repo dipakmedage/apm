@@ -1,5 +1,6 @@
 package com.nclinic.apm.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class AppointmentService {
 	public String bookAppointment(Appointment appointment) {
 		if (appointment.getAdvancePayment() > 0) {
 			insertIntoPaymentifAdvanceTrue(appointment.getPatientName(), appointment.getAdvancePayment(),
-					appointment.getTransactionId());
+					appointment.getTransactionId(), appointment.getAppointmentDate());
 		}
+		paymentService.findandUpdateAdvancePay(appointment.getPatientName());
 		appointmentRepository.save(appointment);
 		return "ok";
 	}
@@ -30,9 +32,10 @@ public class AppointmentService {
 		return (List<Appointment>) appointmentRepository.findAll();
 	}
 
-	private boolean insertIntoPaymentifAdvanceTrue(String patientName, int advancePay, String transactionId) {
+	private boolean insertIntoPaymentifAdvanceTrue(String patientName, int advancePay, String transactionId,
+			Date appointmentDate) {
 
-		paymentService.fillInAdvance(patientName, advancePay, transactionId);
+		paymentService.fillInAdvance(patientName, advancePay, transactionId, appointmentDate);
 		return true;
 	}
 }

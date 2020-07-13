@@ -19,44 +19,50 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name=Payment.TABLE_NAME_PAYMENT)
+@Table(name = Payment.TABLE_NAME_PAYMENT)
 public class Payment {
-	
-	
-	public static final String TABLE_NAME_PAYMENT="payment_details";
+
+	public static final String TABLE_NAME_PAYMENT = "payment_details";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="patient_name")
+
+	@Column(name = "patient_name")
 	private String patientName;
-	
+
 	private int payment;
-	
-	@Column(name="remaining_payment")
-	private int remainingPayment=0;
-	
-	@Column(name="advance_payment")
+
+	@Column(name = "remaining_payment")
+	private int remainingPayment = 0;
+
+	@Column(name = "advance_payment")
 	private int advancePayment;
-	
-	@Column(name="transaction_id")
+
+	@Column(name = "session_date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date sessionDate;
+
+	@Column(name = "transaction_id")
 	private String transactionId;
-	
+
+	@Column(name = "is_active")
+	private Character isActive;
+
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date createdAt;
-	
-	@Column(name="modified_at")
+
+	@Column(name = "modified_at")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date modifiedAt;
-	
-	@Column(name="created_by")
+
+	@Column(name = "created_by")
 	private String createdBy;
-	
-	@Column(name="modified_by")
+
+	@Column(name = "modified_by")
 	private String modifiedBy;
 
 }
