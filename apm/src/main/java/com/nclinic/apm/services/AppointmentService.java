@@ -15,9 +15,7 @@ import com.nclinic.apm.repositories.AppointmentRepository;
 
 @Service
 public class AppointmentService {
-	
-	
-	
+
 	private static String pName;
 
 	@Autowired
@@ -35,48 +33,45 @@ public class AppointmentService {
 		appointmentRepository.save(appointment);
 		return "ok";
 	}
-	
-	public Appointment setAppointmentFromExcel(XSSFRow row,DataFormatter formatter) throws ParseException {
+
+	public Appointment setAppointmentFromExcel(XSSFRow row, DataFormatter formatter) throws ParseException {
 		String patientname;
 		Date appointmentDate;
-		Appointment appointment=new Appointment();
+		Appointment appointment = new Appointment();
 		patientname = formatter.formatCellValue(row.getCell(1));
-		if(!patientname.equals("")) {
-			patientname=(String) row.getCell(1).getStringCellValue();
-			if(pName=="" || patientname != pName)
-				pName=patientname;
-		}else {
-			patientname=pName;
+		if (!patientname.equals("")) {
+			patientname = (String) row.getCell(1).getStringCellValue();
+			if (pName == "" || patientname != pName)
+				pName = patientname;
+		} else {
+			patientname = pName;
 		}
-			
-			
+
 		appointment.setPatientName(patientname);
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			
-			appointmentDate = sdf.parse(formatter.formatCellValue(row.getCell(6)));
-			
-			
-			//appointmentDate = row.getCell(6).getDateCellValue();
-			appointment.setAppointmentDate(appointmentDate);
-			
-			String timeSlot = formatter.formatCellValue(row.getCell(7));
-			appointment.setTimeSlot(timeSlot);
-			
-			appointment.setAdvancePayment((int)row.getCell(11).getNumericCellValue());
-			
-			appointment.setSessionApp((String)row.getCell(12).getStringCellValue());
-			
-			appointment.setTransactionId((String)row.getCell(14).getStringCellValue());
-			
-			appointment.setIsActive('Y');
-			
-			appointment.setCreatedBy("Neha");
-			
-		
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		appointmentDate = sdf.parse(formatter.formatCellValue(row.getCell(6)));
+
+		// appointmentDate = row.getCell(6).getDateCellValue();
+		appointment.setAppointmentDate(appointmentDate);
+
+		String timeSlot = formatter.formatCellValue(row.getCell(7));
+		appointment.setTimeSlot(timeSlot);
+
+		appointment.setAdvancePayment((int) row.getCell(11).getNumericCellValue());
+
+		appointment.setSessionApp((String) row.getCell(12).getStringCellValue());
+
+		appointment.setTransactionId((String) row.getCell(14).getStringCellValue());
+
+		appointment.setIsActive('Y');
+
+		appointment.setCreatedBy("Neha");
+
 		return appointment;
 	}
-	
+
 	public void saveFromExcel(List<Appointment> appointments) {
 		appointmentRepository.saveAll(appointments);
 	}
