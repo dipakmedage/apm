@@ -31,6 +31,7 @@ public class Payment {
 	@Column(name = "patient_name")
 	private String patientName;
 
+	@Column(name = "payment")
 	private int payment;
 
 	@Column(name = "remaining_payment")
